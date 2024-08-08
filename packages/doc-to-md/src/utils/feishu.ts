@@ -180,12 +180,12 @@ export const getQuoteValue = ({ block, blocks, pageTitle }: TransformPrams) => {
     const str = block.children
       ?.map((id, index) => {
         const childBlock = blocks.find((item) => item.block_id === id) as IBlock
-        const quoteText = getBaseTextValue(pageTitle, childBlock.text)
+        const childText = transform[childBlock.block_type]({ block: childBlock, blocks, pageTitle })
         if (index === 0 && block.block_type === IBlockType.callout && block.callout?.emoji_id) {
           const emoji = getEmojiChar(block.callout?.emoji_id as keyof typeof EMOJIS)
-          return emoji + ' ' + quoteText
+          return emoji + ' ' + childText
         }
-        return quoteText
+        return childText
       })
       .join('\n') as string
     return quote(str)
