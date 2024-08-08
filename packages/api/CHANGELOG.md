@@ -1,5 +1,14 @@
 # @feishux/api
 
+## 0.3.3
+
+### Patch Changes
+
+- 1. 错误增加友好提示
+  2. 修复引用下的富文本处理
+- Updated dependencies
+  - @feishux/shared@0.3.3
+
 ## 0.3.2
 
 ### Patch Changes
