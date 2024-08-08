@@ -9,6 +9,8 @@ import {
   request,
   RequestOptions,
 } from '@feishux/shared'
+import { getErrorDesc } from './utils'
+import * as process from 'node:process'
 
 /**
  * FeiShu API
@@ -56,6 +58,14 @@ export class FeiShuClient {
         Authorization: `Bearer ${this.tenantAccessToken}`,
       },
     })
+    if (res.data.code !== 0) {
+      out.debug('飞书 API 请求失败： ', JSON.stringify(res.data))
+      out.err(`飞书 API 请求失败: ${getErrorDesc(res)}`)
+      out.warning(
+        '请检查飞书应用配置（机器人、wikiId/folderToken）是否配置正常\n配置文档：https://elog.1874.cool/notion/gvnxobqogetukays#%E9%A3%9E%E4%B9%A6',
+      )
+      process.exit()
+    }
     return res.data.data
   }
 
